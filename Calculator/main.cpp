@@ -51,9 +51,10 @@ void creating_tables()
     }
 }
 
-
+//ещкере
 int main()
 {
+    int zalupa = 0;
     //create tables users and users_products
     creating_tables();
 
