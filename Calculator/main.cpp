@@ -189,8 +189,7 @@ int main()
 
                     if (find_product->next())
                     {
-                        cout << "How much grams of " << find_product->getString(2) << " do you want to add? (in grams) ";
-                        cout << '\n' << find_product->getString(2) << "   " << find_product->getString(3);
+                        cout << "How much grams of " << find_product->getString(2) << " do you want to add? (in grams) "; 
                         double weight;
                         cin >> weight;
 
@@ -203,11 +202,15 @@ int main()
                         //Product product(product_name, weight, calories, proteins, carbohydrates, fat);
 
                         // get user id
-                        //string find_user_id = "SELECT * FROM users WHERE username = '" + user.get_name() + "';";
-                        //sql::ResultSet *user_id = stmt->executeQuery(find_user_id);
+                        string find_user_id = "SELECT * FROM users WHERE username = '" + user.get_name() + "';";
+                        sql::ResultSet *user_id = stmt->executeQuery(find_user_id);
 
-                        //string insert_user_product_query = "INSERT INTO user_products (user_id, product_id, weight) VALUES (" + to_string(2) + ", " + to_string(product_id) + ", " + to_string(weight) + ");";
-                        //stmt->executeUpdate(insert_user_product_query);
+                        if (user_id->next())
+                        {
+                            string insert_user_product_query = "INSERT INTO user_products (user_id, product_id, weight) VALUES (" + to_string(user_id->getInt("id")) + ", " + to_string(product_id) + ", " + to_string(weight) + ");";
+                            stmt->executeUpdate(insert_user_product_query);
+                        }
+                        else cout << "porno" << endl;
 
                         // clearing
                         delete find_product;
