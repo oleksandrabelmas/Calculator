@@ -51,6 +51,6 @@ public:
 
 
 	void add_user();
-	bool login(User user);
+	int login();
 };
 

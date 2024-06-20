@@ -51,10 +51,9 @@ void creating_tables()
     }
 }
 
-//ещкере
+
 int main()
 {
-    int zalupa = 0;
     //create tables users and users_products
     creating_tables();
 
@@ -115,8 +114,29 @@ int main()
     // login
     else if (choice == '2')
     {
+        // обернути в цикл
         system("cls");
-        //check = log_in(username, password);
+        cout << "Type your username: ";
+        string username; cin >> username;
+
+        cout << "\nCreate password: ";
+        string password; cin >> password;
+
+        if (user.login() == 1)
+        {
+            cout << "Login was successful\n";
+        }
+        else if (user.login() == 2)
+        {
+            // додати можливість зареєструватися після цього кроку(винести реєстрацію в окрему функцію)
+            cout << "login was incorrect. Maybe you want to register?\n";
+            check = false;
+        }
+        else
+        {
+            cout << "Password was incorrect\n";
+            check = false;
+        }
     }
 
     _getch(); 
@@ -211,6 +231,10 @@ int main()
         {
             system("cls");
         }
+    }
+    else
+    {
+        cout << "Problem with auth\n";
     }
 
     cout << "Bye Bye";

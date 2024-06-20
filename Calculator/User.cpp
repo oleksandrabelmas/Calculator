@@ -51,4 +51,36 @@ void User::add_user()
     }
 }
 
-bool User::login(User user) {}
+int User::login()
+{
+    try
+    {
+        //starting connection
+        sql::Driver* driver = get_driver_instance();
+        sql::Connection* conn = driver->connect("tcp://127.0.0.1:3306", "root", "root");
+        conn->setSchema("porno");
+
+        sql::Statement* stmt = conn->createStatement();
+
+        string check_user_query = "SELECT * FROM Users WHERE username = '" + this->name + "';";
+
+        sql::ResultSet *res = stmt->executeQuery(check_user_query);
+
+        // 2 means incorect login; 0 means incorect password; 1 ok;
+        if (res->next())
+        {
+            return res->getString("password") == this->password;
+        }
+        else return 2;
+
+    }
+    catch (sql::SQLException& e)
+    {
+        cout << "# ERR: SQLException in " << __FILE__;
+        cout << "(" << __FUNCTION__ << ") on line "
+            << __LINE__ << endl;
+        cout << "# ERR: " << e.what();
+        cout << " (MySQL error code: " << e.getErrorCode();
+        cout << ", SQLState: " << e.getSQLState() << " )" << endl;
+    }
+}
