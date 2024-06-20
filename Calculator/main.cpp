@@ -18,7 +18,7 @@ void creating_tables()
 
         sql::Statement* stmt = conn->createStatement();
 
-        string create_user_table_query = "CREATE TABLE IF NOT EXISTS Users ( \
+        string create_user_table_query = "CREATE TABLE IF NOT EXISTS users ( \
                                     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, \
                                     username VARCHAR(255) NOT NULL, \
                                     password VARCHAR(255) NOT NULL, \
@@ -28,10 +28,10 @@ void creating_tables()
                                     height FLOAT NOT NULL);";
         stmt->execute(create_user_table_query);
 
-        string create_user_products_table_query = "CREATE TABLE IF NOT EXISTS UserProducts ( \
+        string create_user_products_table_query = "CREATE TABLE IF NOT EXISTS user_products ( \
                                             user_id INT NOT NULL, \
                                             product_id INT NOT NULL, \
-                                            quantity INT NOT NULL DEFAULT 1, \
+                                            weight FLOAT NOT NULL, \
                                             FOREIGN KEY(user_id) REFERENCES Users(id), \
                                             FOREIGN KEY(product_id) REFERENCES Products(id), \
                                             PRIMARY KEY(user_id, product_id));";
@@ -118,9 +118,12 @@ int main()
         system("cls");
         cout << "Type your username: ";
         string username; cin >> username;
+        user.set_username(username);
 
-        cout << "\nCreate password: ";
+        cout << "\nType password: ";
         string password; cin >> password;
+        user.set_password(password);
+
 
         if (user.login() == 1)
         {
@@ -191,14 +194,20 @@ int main()
                         double weight;
                         cin >> weight;
 
-                        string product_name = find_product->getString(2);
-                        double calories = stod(find_product->getString(3));
-                        double proteins = stod(find_product->getString(4));
-                        double carbohydrates = stod(find_product->getString(5));
-                        double fat = stod(find_product->getString(6));
+                        //string product_name = find_product->getString(2);
+                        //double calories = stod(find_product->getString(3));
+                        //double proteins = stod(find_product->getString(4));
+                        //double carbohydrates = stod(find_product->getString(5));
+                        //double fat = stod(find_product->getString(6));
 
-                        Product product(product_name, weight, calories, proteins, carbohydrates, fat);
+                        //Product product(product_name, weight, calories, proteins, carbohydrates, fat);
 
+                        // get user id
+                        //string find_user_id = "SELECT * FROM users WHERE username = '" + user.get_name() + "';";
+                        //sql::ResultSet *user_id = stmt->executeQuery(find_user_id);
+
+                        //string insert_user_product_query = "INSERT INTO user_products (user_id, product_id, weight) VALUES (" + to_string(2) + ", " + to_string(product_id) + ", " + to_string(weight) + ");";
+                        //stmt->executeUpdate(insert_user_product_query);
 
                         // clearing
                         delete find_product;
